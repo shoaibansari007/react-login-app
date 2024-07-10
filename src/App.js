@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./component/Login";
+import SignUp from "./component/SignUp";
+import Home from "./component/Home";
+import ProtectedRoute from "./component/services/ProtectedRoute";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "90vh",
+        margin: "0",
+      }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route
+            path="*"
+            element={<div className="not-found">404 - Page Not Found</div>}
+          />
+        </Routes>
+      </BrowserRouter>
+      {/* <Login /> */}
+      {/* <SignOut /> */}
     </div>
   );
 }
