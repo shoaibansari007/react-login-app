@@ -7,9 +7,9 @@ const Login = () => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
+  const usersList = JSON.parse(localStorage.getItem("users"));
   const handleSubmit = (e) => {
     e.preventDefault();
-    const usersList = JSON.parse(localStorage.getItem("users"));
 
     const userMatched = usersList.some(
       (el) => el.email === user.email && el.password === user.password
@@ -22,6 +22,10 @@ const Login = () => {
       setError(true);
     }
   };
+  const loggedinUser = usersList.filter(
+    (el) => el.email === user.email && el.password === user.password
+  );
+  localStorage.setItem("currentUser", JSON.stringify(loggedinUser));
 
   return (
     <form onSubmit={handleSubmit}>
